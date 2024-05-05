@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20240505190610">
+	<link rel="stylesheet" href="css/style.min.css?_v=20240506002823">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
 				<div class="hero__container">
 					<h1 class="hero__title">
 						<span class="red">Dr.</span>
-						Cat
+						<span>Cat</span>
 					</h1>
 					<div class="hero__img">
 						<img class="hero__cat-img" src="img/hero/cat.png" alt="Image">
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 			</section>
-			<section data-watch="navigator" class="page__buy buy">
+			<section data-watch="navigator" data-watch-threshold="0.7" data-watch-once class="page__buy buy">
 				<div class="buy__container">
 					<div class="buy__wrapper-buttle">
 						<div class="buy__buttle buttle-buy">
@@ -194,7 +194,6 @@
 							<div class="left-about__img">
 								<img class="ibg ibg--contain" data-src="img/about/cat.png" alt="Image">
 								<span>
-
 								</span>
 							</div>
 						</article>
@@ -208,14 +207,14 @@
 							<ul class="right-about__list">
 								<li class="right-about__item">
 									<div class="right-about__count">
-										7+
+										<span data-counter=" 1s , 4em">7</span><span>+</span>
 									</div>
 									<div class="right-about__text">
 										Years in healthcare
 									</div>
 								</li>
 								<li class="right-about__item">
-									<div class="right-about__count">
+									<div data-counter=" 1s" class="right-about__count">
 										200
 									</div>
 									<div class="right-about__text">
@@ -224,14 +223,14 @@
 								</li>
 								<li class="right-about__item">
 									<div class="right-about__count">
-										99+
+										<span data-counter=" 1s , 8em">99</span><span>+</span>
 									</div>
 									<div class="right-about__text">
 										Positive reviews
 									</div>
 								</li>
 								<li class="right-about__item">
-									<div class="right-about__count">
+									<div data-counter=" 1s" class="right-about__count">
 										3
 									</div>
 									<div class="right-about__text">
@@ -260,7 +259,7 @@
 						</article>
 					</div>
 				</div>
-				<div data-watch="navigator" class="page__tokenomics tokenomics">
+				<div data-watch="navigator" data-watch="navigator" data-watch-once data-watch-threshold="0.6" class="page__tokenomics tokenomics">
 					<div class="tokenomics__container">
 						<div class="tokenomics__img">
 							<svg class="tokenomics__pulse" viewBox="0 0 1229 465" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,7 +300,7 @@
 				</div>
 			</div>
 
-			<section data-watch="navigator" class="page__faqos faqos">
+			<section data-watch="navigator" data-watch-threshold="0.8" data-watch-once class="page__faqos faqos">
 				<div class="faqos__container">
 					<h2 class="faqos__title">
 						FAQs
@@ -352,7 +351,7 @@
 			</section>
 
 		</main>
-		<footer class="footer">
+		<footer data-watch="navigator" data-watch-threshold="0.8" class="footer">
 			<div class="footer__wrapper">
 				<div class="footer__container">
 					<div class="footer__left">
@@ -397,7 +396,7 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/app.min.js?_v=20240505190610"></script>
+	<script src="js/app.min.js?_v=20240506002823"></script>
 </body>
 
 </html>

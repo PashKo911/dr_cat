@@ -193,7 +193,45 @@ h6 {
   font-size: 1.25rem;
   border-radius: 2rem;
   border: .25rem solid var(--text-secondary);
-  background: rgba(255,255,255,.5)
+  background: rgba(255,255,255,.5);
+  -webkit-transform: translate(0,-15%);
+  transform: translate(0,-15%)
+}
+._watcher-view .spollers__item {
+  -webkit-animation: spolersAn .3s linear forwards;
+  animation: spolersAn .3s linear forwards
+}
+.spollers__item:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s
+}
+.spollers__item:nth-child(2) {
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s
+}
+.spollers__item:nth-child(3) {
+  -webkit-animation-delay: .4s;
+  animation-delay: .4s
+}
+.spollers__item:nth-child(4) {
+  -webkit-animation-delay: .6s;
+  animation-delay: .6s
+}
+.spollers__item:nth-child(5) {
+  -webkit-animation-delay: .8s;
+  animation-delay: .8s
+}
+@-webkit-keyframes spolersAn {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
+}
+@keyframes spolersAn {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
 }
 .spollers__title {
   color: var(--text-secondary);
@@ -298,14 +336,17 @@ h6 {
 }
 .header {
   position: fixed;
-  top: 0;
+  top: -100%;
   left: 0;
   width: 100%;
   z-index: 50;
-  transition: top 1.5s
+  transition: top 1.5s ease .5s
 }
 .header._header-scroll {
   background-color: rgba(243,243,243,.604)
+}
+.loaded .header {
+  top: 0
 }
 .header__container {
   display: flex;
@@ -403,12 +444,31 @@ h6 {
   flex: 1 1 39.0070921986%;
   margin-top: -5.3125rem;
   text-align: center;
-  pointer-events: none
+  pointer-events: none;
+  overflow: hidden
 }
 .footer__img img {
   width: 48%;
   -o-object-fit: cover;
-  object-fit: cover
+  object-fit: cover;
+  -webkit-transform: translate(0,100%);
+  transform: translate(0,100%)
+}
+._watcher-view .footer__img img {
+  -webkit-animation: footerImg .5s ease forwards .6s;
+  animation: footerImg .5s ease forwards .6s
+}
+@-webkit-keyframes footerImg {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
+}
+@keyframes footerImg {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
 }
 .top-footer {
   display: flex;
@@ -420,10 +480,24 @@ h6 {
 .top-footer:not(:last-child)::after {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 0;
   bottom: 0;
   left: 0;
   background-color: #d9d9d9
+}
+._watcher-view .top-footer:not(:last-child)::after {
+  -webkit-animation: footerLine .5s ease forwards;
+  animation: footerLine .5s ease forwards
+}
+@-webkit-keyframes footerLine {
+  100% {
+    width: 100%
+  }
+}
+@keyframes footerLine {
+  100% {
+    width: 100%
+  }
 }
 .top-footer__column {
   display: grid;
@@ -449,7 +523,8 @@ h6 {
 }
 .hero {
   background: url(../img/hero/bg.png);
-  padding-top: calc(var(--headH) + 2.8125rem)
+  padding-top: calc(var(--headH) + 2.8125rem);
+  overflow: hidden
 }
 .hero__container {
   display: flex;
@@ -466,10 +541,109 @@ h6 {
   line-height: 68%;
   flex-basis: 50%
 }
+.hero__title span {
+  opacity: 0;
+  -webkit-transform: translate(-10%,0);
+  transform: translate(-10%,0);
+  visibility: hidden
+}
+.loaded .hero__title span {
+  -webkit-animation: heroTitle .5s linear forwards;
+  animation: heroTitle .5s linear forwards
+}
+.hero__title span:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s
+}
+.hero__title span:nth-child(2) {
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s
+}
+@-webkit-keyframes heroTitle {
+  100% {
+    opacity: 1;
+    visibility: visible
+  }
+}
+@keyframes heroTitle {
+  100% {
+    opacity: 1;
+    visibility: visible
+  }
+}
 .hero__img {
   flex-basis: 50%;
   position: relative;
   width: 100%
+}
+.hero__img img:nth-child(1) {
+  -webkit-transform: translate(0,100%) scale(.8);
+  transform: translate(0,100%) scale(.8);
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden
+}
+.loaded .hero__img img:nth-child(1) {
+  -webkit-animation: heroImgCat .6s linear forwards .5s;
+  animation: heroImgCat .6s linear forwards .5s
+}
+.hero__img img:nth-child(2) {
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  -webkit-transform-origin: bottom left;
+  transform-origin: bottom left;
+  opacity: 0;
+  -webkit-animation: heroImgCup .4s linear forwards 1.3s;
+  animation: heroImgCup .4s linear forwards 1.3s;
+  z-index: -1
+}
+@-webkit-keyframes heroImgCup {
+  100% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    opacity: 1;
+    z-index: 1
+  }
+}
+@keyframes heroImgCup {
+  100% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    opacity: 1;
+    z-index: 1
+  }
+}
+@-webkit-keyframes heroImgCat {
+  50% {
+    -webkit-transform: translate(0,0) scale(1.2);
+    transform: translate(0,0) scale(1.2);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible
+  }
+}
+@keyframes heroImgCat {
+  50% {
+    -webkit-transform: translate(0,0) scale(1.2);
+    transform: translate(0,0) scale(1.2);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    z-index: 1;
+    opacity: 1;
+    visibility: visible
+  }
 }
 .hero__cat-img {
   width: 90%;
@@ -543,18 +717,76 @@ h6 {
   align-items: flex-start;
   justify-content: space-between
 }
+@-webkit-keyframes sliderAn {
+  25% {
+    -webkit-transform: translate(-75%,-5%);
+    transform: translate(-75%,-5%)
+  }
+  50% {
+    -webkit-transform: translate(-50%,-10%);
+    transform: translate(-50%,-10%)
+  }
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
+}
+@keyframes sliderAn {
+  25% {
+    -webkit-transform: translate(-75%,-5%);
+    transform: translate(-75%,-5%)
+  }
+  50% {
+    -webkit-transform: translate(-50%,-10%);
+    transform: translate(-50%,-10%)
+  }
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
+}
 .buy__slider {
   max-width: 37.5rem;
   grid-area: 1/1/2/3
+}
+@-webkit-keyframes sliderBodyAn {
+  100% {
+    opacity: 1;
+    visibility: visible
+  }
+}
+@keyframes sliderBodyAn {
+  100% {
+    opacity: 1;
+    visibility: visible
+  }
 }
 .buttle-buy {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  aspect-ratio: 455/283;
-  -webkit-transform: rotate(-10deg);
-  transform: rotate(-10deg)
+  aspect-ratio: 455/283
+}
+@-webkit-keyframes buttleAn {
+  75% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0)
+  }
+  100% {
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg)
+  }
+}
+@keyframes buttleAn {
+  75% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0)
+  }
+  100% {
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg)
+  }
 }
 .buttle-buy__decor {
   position: absolute;
@@ -612,10 +844,34 @@ h6 {
   background-color: var(--text-accent-sec);
   box-shadow: 0 -1.25rem 2.14375rem 0 rgba(0,0,0,.25) inset,.28125rem .4375rem 0 0 #000;
   aspect-ratio: 150/100;
-  -webkit-transform: rotate(-5.546deg);
-  transform: rotate(-5.546deg);
   min-width: 4.375rem;
-  transition: box-shadow .3s
+  transition: box-shadow .3s;
+  -webkit-transform: rotate(-5.5deg);
+  transform: rotate(-5.5deg)
+}
+@-webkit-keyframes buttonPrev {
+  0% {
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0,0) rotate(-5.546deg);
+    transform: translate(0,0) rotate(-5.546deg)
+  }
+}
+@keyframes buttonPrev {
+  0% {
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0,0) rotate(-5.546deg);
+    transform: translate(0,0) rotate(-5.546deg)
+  }
 }
 .swiper-button-next img,
 .swiper-button-prev img {
@@ -627,6 +883,30 @@ h6 {
   border-radius: 0 62.5rem 62.5rem 0;
   -webkit-transform: rotate(9deg);
   transform: rotate(9deg)
+}
+@-webkit-keyframes buttonNext {
+  0% {
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0,0) rotate(9deg);
+    transform: translate(0,0) rotate(9deg)
+  }
+}
+@keyframes buttonNext {
+  0% {
+    opacity: 1;
+    visibility: visible
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(0,0) rotate(9deg);
+    transform: translate(0,0) rotate(9deg)
+  }
 }
 .about__container {
   display: flex;
@@ -702,7 +982,8 @@ h6 {
 .right-about__count {
   font-family: Crog,sans-serif;
   line-height: .9;
-  letter-spacing: -.09rem
+  letter-spacing: -.09rem;
+  display: flex
 }
 .right-about__text {
   font-weight: 500;
@@ -774,6 +1055,7 @@ h6 {
   border: .5rem solid #000;
   background-color: #ededed;
   padding: 2.75rem;
+  overflow: hidden;
   position: relative;
   z-index: 2
 }
@@ -788,14 +1070,54 @@ h6 {
 .card-tokenomics__title {
   font-family: Crog,sans-serif;
   font-weight: 700;
-  line-height: .9
+  line-height: .9;
+  -webkit-transform: translate(150%,0);
+  transform: translate(150%,0)
+}
+._watcher-view .card-tokenomics__title {
+  -webkit-animation: tokenomicsList .4s ease forwards;
+  animation: tokenomicsList .4s ease forwards
 }
 .card-tokenomics__item {
   font-family: Crog,sans-serif;
   font-weight: 700;
   line-height: .9;
   display: flex;
-  align-items: center
+  align-items: center;
+  -webkit-transform: translate(150%,0);
+  transform: translate(150%,0)
+}
+._watcher-view .card-tokenomics__item {
+  -webkit-animation: tokenomicsList .4s ease forwards;
+  animation: tokenomicsList .4s ease forwards
+}
+.card-tokenomics__item:nth-child(1) {
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s
+}
+.card-tokenomics__item:nth-child(2) {
+  -webkit-animation-delay: .4s;
+  animation-delay: .4s
+}
+.card-tokenomics__item:nth-child(3) {
+  -webkit-animation-delay: .6s;
+  animation-delay: .6s
+}
+.card-tokenomics__item:nth-child(4) {
+  -webkit-animation-delay: .8s;
+  animation-delay: .8s
+}
+@-webkit-keyframes tokenomicsList {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
+}
+@keyframes tokenomicsList {
+  100% {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0)
+  }
 }
 .card-tokenomics__item span {
   content: "";
@@ -1264,6 +1586,55 @@ h6 {
     padding-right: 2.75rem
   }
 }
+@media (min-width:75em) {
+  .buy__swiper-box {
+    -webkit-transform: translate(-100%,0);
+    transform: translate(-100%,0)
+  }
+  ._watcher-view .buy__swiper-box {
+    -webkit-animation: sliderAn .6s linear .6s forwards;
+    animation: sliderAn .6s linear .6s forwards
+  }
+  .buy__slider {
+    opacity: 0;
+    visibility: hidden
+  }
+  ._watcher-view .buy__slider {
+    -webkit-animation: sliderBodyAn 1s linear 1.5s forwards;
+    animation: sliderBodyAn 1s linear 1.5s forwards
+  }
+  .buttle-buy {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+    z-index: 10
+  }
+  ._watcher-view .buttle-buy {
+    -webkit-animation: buttleAn 1s ease forwards;
+    animation: buttleAn 1s ease forwards
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    -webkit-transform: translate(200%,0) rotate(-5.546deg);
+    transform: translate(200%,0) rotate(-5.546deg);
+    opacity: 0;
+    visibility: hidden
+  }
+  ._watcher-view .swiper-button-next,
+  ._watcher-view .swiper-button-prev {
+    -webkit-animation: buttonPrev 1s linear .8s forwards;
+    animation: buttonPrev 1s linear .8s forwards
+  }
+  .swiper-button-next {
+    -webkit-transform: translate(-200%,0) rotate(9deg);
+    transform: translate(-200%,0) rotate(9deg)
+  }
+  ._watcher-view .swiper-button-next {
+    -webkit-animation: buttonNext 1s linear 1s forwards;
+    animation: buttonNext 1s linear 1s forwards
+  }
+}
 @media (min-width:100em) {
   .menu__link {
     padding-left: 1.25rem
@@ -1328,10 +1699,10 @@ h6 {
     margin-bottom: 3.125rem
   }
   .right-about__item {
-    padding: 1.8125rem
+    padding: 1.4375rem
   }
   .right-about__count {
-    font-size: 4.5rem
+    font-size: 4.0625rem
   }
   .right-about__count:not(:last-child) {
     margin-bottom: .9375rem
@@ -1421,7 +1792,7 @@ h6 {
     padding-left: 2.5rem
   }
   .right-about__item {
-    padding: .9375rem
+    padding: .875rem
   }
   .right-about__count:not(:last-child) {
     margin-bottom: .3125rem
@@ -1823,6 +2194,9 @@ h6 {
   .right-about__item {
     flex: 0 1 calc((100% - .625rem * 1)/ 2);
     text-align: center
+  }
+  .right-about__count {
+    justify-content: center
   }
 }
 @media (max-width:61.99875em) and (any-hover:none) {
@@ -2570,14 +2944,14 @@ h6 {
       padding-left: calc(2.5rem + 2.5 * (100vw - 62rem)/ 38)
     }
   }
-  @supports (padding:clamp(0.9375rem ,-0.4901315789rem + 2.3026315789vw ,1.8125rem)) {
+  @supports (padding:clamp(0.875rem ,-0.0427631579rem + 1.4802631579vw ,1.4375rem)) {
     .right-about__item {
-      padding: clamp(.9375rem ,-.4901315789rem + 2.3026315789vw ,1.8125rem)
+      padding: clamp(.875rem ,-.0427631579rem + 1.4802631579vw ,1.4375rem)
     }
   }
-  @supports not (padding:clamp(0.9375rem ,-0.4901315789rem + 2.3026315789vw ,1.8125rem)) {
+  @supports not (padding:clamp(0.875rem ,-0.0427631579rem + 1.4802631579vw ,1.4375rem)) {
     .right-about__item {
-      padding: calc(.9375rem + .875 * (100vw - 62rem)/ 38)
+      padding: calc(.875rem + .5625 * (100vw - 62rem)/ 38)
     }
   }
   @supports (margin-bottom:clamp(0.3125rem ,-0.7072368421rem + 1.6447368421vw ,0.9375rem)) {
@@ -2968,14 +3342,14 @@ h6 {
       font-size: calc(1.375rem + .625 * (100vw - 30rem)/ 70)
     }
   }
-  @supports (font-size:clamp(1.5625rem ,0.3035714286rem + 4.1964285714vw ,4.5rem)) {
+  @supports (font-size:clamp(1.5625rem ,0.4910714286rem + 3.5714285714vw ,4.0625rem)) {
     .right-about__count {
-      font-size: clamp(1.5625rem ,.3035714286rem + 4.1964285714vw ,4.5rem)
+      font-size: clamp(1.5625rem ,.4910714286rem + 3.5714285714vw ,4.0625rem)
     }
   }
-  @supports not (font-size:clamp(1.5625rem ,0.3035714286rem + 4.1964285714vw ,4.5rem)) {
+  @supports not (font-size:clamp(1.5625rem ,0.4910714286rem + 3.5714285714vw ,4.0625rem)) {
     .right-about__count {
-      font-size: calc(1.5625rem + 2.9375 * (100vw - 30rem)/ 70)
+      font-size: calc(1.5625rem + 2.5 * (100vw - 30rem)/ 70)
     }
   }
   @supports (font-size:clamp(0.875rem ,0.7142857143rem + 0.5357142857vw ,1.25rem)) {

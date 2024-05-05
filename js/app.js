@@ -325,6 +325,13 @@
                 document.documentElement.classList.add(className);
             }));
         }
+        function addLoadedClass() {
+            if (!document.documentElement.classList.contains("loading")) window.addEventListener("load", (function() {
+                setTimeout((function() {
+                    document.documentElement.classList.add("loaded");
+                }), 0);
+            }));
+        }
         function getHash() {
             if (location.hash) return location.hash.replace("#", "");
         }
@@ -6116,6 +6123,174 @@
                 }));
             }
         }), 0);
+        class Counter {
+            constructor(counterAtr) {
+                this.counterAtr = counterAtr || "data-counter";
+            }
+            callBack(entries) {
+                entries.forEach((entry => {
+                    const counterEl = entry.target;
+                    const counter = this.counters.find((counter => counter.counterEl === counterEl));
+                    if (entry.isIntersecting) if (!counter.isAnimated) {
+                        counter.startCounter();
+                        if (!counter.repeat) {
+                            counter.isAnimated = true;
+                            this.observer.unobserve(counterEl);
+                        }
+                    }
+                }));
+            }
+            observe(element) {
+                const options = {
+                    root: null,
+                    rootMargin: "0px 0px 0px 0px",
+                    threshold: .5
+                };
+                this.observer = new IntersectionObserver(this.callBack.bind(this), options);
+                this.observer.observe(element);
+            }
+            counterInit() {
+                const counterElements = document.querySelectorAll(`[${this.counterAtr}]`);
+                this.counters = [];
+                if (counterElements.length) counterElements.forEach((counter => {
+                    const newCounter = new CounterInstance(counter, this.counterAtr);
+                    this.counters.push(newCounter);
+                    newCounter.initCounter();
+                    this.observe(counter);
+                }));
+            }
+        }
+        class CounterInstance {
+            constructor(counterEl, counterAtr, parentAtrName, repeatAtrName, separatorAtrName) {
+                this.counterAtr = counterAtr;
+                this.parentAtrName = parentAtrName || "data-circle-wrap";
+                this.repeatAtrName = repeatAtrName || "data-repeat";
+                this.separatorAtrName = separatorAtrName || "data-separator";
+                this.counterEl = counterEl;
+                this.parentEl = this.counterEl.closest(`[${this.parentAtrName}]`);
+                this.isAnimated = false;
+            }
+            setWidth() {
+                const width = this.counterEl.offsetWidth;
+                const fontSize = parseFloat(getComputedStyle(this.counterEl).fontSize);
+                this.counterEl.style.minWidth = (width + this.range) / fontSize + "em";
+            }
+            getCounterValues() {
+                const counterValues = this.counterEl.getAttribute(this.counterAtr);
+                let custValue = this.counterEl.textContent.trim() || 0;
+                const [customTime, customRange] = counterValues.split(",").map((value => parseFloat(value.trim(), 10)));
+                this.time = customTime * 1e3 || 1e3;
+                this.range = customRange || 0;
+                this.value = parseInt(this.initSeparator(custValue));
+                if (this.counterEl.hasAttribute(this.separatorAtrName)) this.counterEl.textContent = this.formatNumberWithSeparator(this.value);
+                this.repeat = this.counterEl.hasAttribute(this.repeatAtrName);
+            }
+            initSeparator(custValue) {
+                if (this.counterEl.hasAttribute(this.separatorAtrName)) {
+                    const matchResult = custValue.match(/[^\d]/);
+                    if (matchResult) {
+                        this.separator = matchResult[0];
+                        return this.value = custValue.split(this.separator).join("");
+                    } else {
+                        const formatter = new Intl.NumberFormat;
+                        const parts = formatter.formatToParts(1e3);
+                        const localSeparator = parts.find((part => part.type === "group"));
+                        this.separator = localSeparator.value;
+                    }
+                } else this.separator = "";
+                return this.value = custValue;
+            }
+            animateCounter() {
+                let current = 0;
+                let start = null;
+                const step = timestamp => {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / this.time, 1);
+                    this.counterEl.textContent = this.formatNumberWithSeparator(progress * (current + parseInt(this.value)));
+                    if (progress < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            }
+            formatNumberWithSeparator(number) {
+                const integerPart = number.toFixed(0);
+                return integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, this.separator);
+            }
+            startCounter() {
+                if (this.parentEl) this.setAnimationProperties();
+                this.animateCounter();
+            }
+            setAnimationProperties() {
+                this.offsetValue = this.totalLength - this.totalLength * this.value / this.maxValue;
+                if (this.styleElement) {
+                    this.styleElement.innerText = `@keyframes ${this.animName} {\n\t\t\t\t\t100% {\n\t\t\t\t\t  stroke-dashoffset: ${this.offsetValue}; \n\t\t\t\t\t}\n\t\t\t\t  }`;
+                    this.circleElement.style.animation = "";
+                    setTimeout((() => {
+                        this.circleElement.style.animation = `${this.animName} ${this.time}ms linear forwards`;
+                    }), 20);
+                    return;
+                }
+                this.animName = `anim-${Math.floor(Math.random() * 1e6)}`;
+                const keyframesRule = `@keyframes ${this.animName} {\n\t\t\t\t100% {\n\t\t\t\t  stroke-dashoffset: ${this.offsetValue}; \n\t\t\t\t}\n\t\t\t  }`;
+                this.styleElement = document.createElement("style");
+                this.styleElement.append(keyframesRule);
+                this.styleElement.classList.add(this.animName);
+                document.head.appendChild(this.styleElement);
+                this.circleElement.style.animation = `${this.animName} ${this.time}ms linear forwards`;
+            }
+            setStyles() {
+                this.totalLength = this.circleElement.getTotalLength();
+                this.svgElement.style.position = "absolute";
+                this.svgElement.style.top = "0";
+                this.svgElement.style.left = "0";
+                this.svgElement.style.width = "100%";
+                this.svgElement.style.height = "100%";
+                this.svgElement.style.fill = this.fill;
+                this.svgElement.style.stroke = this.stroke;
+                this.svgElement.style.strokeWidth = this.strokeWidth / 16 + "rem";
+                this.circleElement.style.strokeDasharray = this.totalLength;
+                this.circleElement.style.strokeDashoffset = this.totalLength;
+            }
+            setSvgSize() {
+                const attributes = [ "cx", "cy", "r" ];
+                this.parentElWidth = this.parentEl.offsetWidth;
+                attributes.forEach((attr => {
+                    if (attr === "r") this.circleElement.setAttribute(attr, (this.parentElWidth - this.strokeWidth) / 2); else this.circleElement.setAttribute(attr, this.parentElWidth / 2);
+                }));
+            }
+            getSvgParams() {
+                const svgValues = this.parentEl.getAttribute(this.parentAtrName);
+                const [custFill, custStroke, custStrokeWidth, fullFilling] = svgValues.split(",").map((value => value.trim()));
+                this.fill = custFill || "#000";
+                this.stroke = custStroke || "#ff0000";
+                this.strokeWidth = parseFloat(custStrokeWidth, 10) || 3;
+                this.maxValue = fullFilling ? this.value : 100;
+            }
+            svgCreator() {
+                this.svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                this.circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                this.svgElement.appendChild(this.circleElement);
+                this.circleElement.setAttribute("stroke-linecap", "round");
+                this.parentEl.prepend(this.svgElement);
+            }
+            svgInit() {
+                this.parentEl.style.position = "relative";
+                this.getSvgParams();
+                this.svgCreator();
+                const resizeObserver = new ResizeObserver((() => {
+                    this.setSvgSize();
+                    this.setStyles();
+                    this.setAnimationProperties();
+                }));
+                resizeObserver.observe(this.parentEl);
+            }
+            initCounter() {
+                this.getCounterValues();
+                this.setWidth();
+                if (this.parentEl) this.svgInit();
+            }
+        }
+        const counter = new Counter;
+        counter.counterInit();
         class DynamicAdapt {
             constructor(type) {
                 this.type = type;
@@ -6201,6 +6376,7 @@
         const da = new DynamicAdapt("max");
         da.init();
         isWebp();
+        addLoadedClass();
         menuInit();
         spollers();
         copyTextToClipboard();
