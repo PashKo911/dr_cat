@@ -343,7 +343,7 @@ h6 {
   transition: top 1.5s ease .5s
 }
 .header._header-scroll {
-  background-color: rgba(243,243,243,.604)
+  background-color: rgba(243,243,243,.9)
 }
 .loaded .header {
   top: 0
@@ -769,9 +769,13 @@ h6 {
   aspect-ratio: 455/283
 }
 @-webkit-keyframes buttleAn {
-  75% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0)
+  90% {
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg)
+  }
+  95% {
+    -webkit-transform: rotate(-13deg);
+    transform: rotate(-13deg)
   }
   100% {
     -webkit-transform: rotate(-10deg);
@@ -779,9 +783,13 @@ h6 {
   }
 }
 @keyframes buttleAn {
-  75% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0)
+  90% {
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg)
+  }
+  95% {
+    -webkit-transform: rotate(-13deg);
+    transform: rotate(-13deg)
   }
   100% {
     -webkit-transform: rotate(-10deg);
@@ -851,8 +859,26 @@ h6 {
 }
 @-webkit-keyframes buttonPrev {
   0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(250%,0) rotate(0);
+    transform: translate(250%,0) rotate(0)
+  }
+  20% {
     opacity: 1;
     visibility: visible
+  }
+  40% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(250%,50%) rotate(0);
+    transform: translate(250%,50%) rotate(0)
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(250%,50%) rotate(0);
+    transform: translate(250%,50%) rotate(0)
   }
   100% {
     opacity: 1;
@@ -863,8 +889,26 @@ h6 {
 }
 @keyframes buttonPrev {
   0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(250%,0) rotate(0);
+    transform: translate(250%,0) rotate(0)
+  }
+  20% {
     opacity: 1;
     visibility: visible
+  }
+  40% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(250%,50%) rotate(0);
+    transform: translate(250%,50%) rotate(0)
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(250%,50%) rotate(0);
+    transform: translate(250%,50%) rotate(0)
   }
   100% {
     opacity: 1;
@@ -886,26 +930,62 @@ h6 {
 }
 @-webkit-keyframes buttonNext {
   0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(-225%,0) rotate(0);
+    transform: translate(-225%,0) rotate(0)
+  }
+  20% {
     opacity: 1;
     visibility: visible
+  }
+  40% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(-225%,50%) rotate(0);
+    transform: translate(-225%,50%) rotate(0)
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(-225%,50%) rotate(0);
+    transform: translate(-225%,50%) rotate(0)
   }
   100% {
     opacity: 1;
     visibility: visible;
-    -webkit-transform: translate(0,0) rotate(9deg);
-    transform: translate(0,0) rotate(9deg)
+    -webkit-transform: translate(0,0) rotate(5.546deg);
+    transform: translate(0,0) rotate(5.546deg)
   }
 }
 @keyframes buttonNext {
   0% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translate(-225%,0) rotate(0);
+    transform: translate(-225%,0) rotate(0)
+  }
+  20% {
     opacity: 1;
     visibility: visible
+  }
+  40% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(-225%,50%) rotate(0);
+    transform: translate(-225%,50%) rotate(0)
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translate(-225%,50%) rotate(0);
+    transform: translate(-225%,50%) rotate(0)
   }
   100% {
     opacity: 1;
     visibility: visible;
-    -webkit-transform: translate(0,0) rotate(9deg);
-    transform: translate(0,0) rotate(9deg)
+    -webkit-transform: translate(0,0) rotate(5.546deg);
+    transform: translate(0,0) rotate(5.546deg)
   }
 }
 .about__container {
@@ -1327,7 +1407,7 @@ h6 {
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
+    top: -.0625rem;
     left: 0;
     pointer-events: none
   }
@@ -1600,8 +1680,8 @@ h6 {
     visibility: hidden
   }
   ._watcher-view .buy__slider {
-    -webkit-animation: sliderBodyAn 1s linear 1.5s forwards;
-    animation: sliderBodyAn 1s linear 1.5s forwards
+    -webkit-animation: sliderBodyAn .8s linear 1.2s forwards;
+    animation: sliderBodyAn .8s linear 1.2s forwards
   }
   .buttle-buy {
     -webkit-transform: rotate(-90deg);
@@ -1611,28 +1691,28 @@ h6 {
     z-index: 10
   }
   ._watcher-view .buttle-buy {
-    -webkit-animation: buttleAn 1s ease forwards;
-    animation: buttleAn 1s ease forwards
+    -webkit-animation: buttleAn .6s ease-in forwards;
+    animation: buttleAn .6s ease-in forwards
   }
   .swiper-button-next,
   .swiper-button-prev {
-    -webkit-transform: translate(200%,0) rotate(-5.546deg);
-    transform: translate(200%,0) rotate(-5.546deg);
+    -webkit-transform: translate(250%,0) rotate(0);
+    transform: translate(250%,0) rotate(0);
     opacity: 0;
     visibility: hidden
   }
   ._watcher-view .swiper-button-next,
   ._watcher-view .swiper-button-prev {
-    -webkit-animation: buttonPrev 1s linear .8s forwards;
-    animation: buttonPrev 1s linear .8s forwards
+    -webkit-animation: buttonPrev .8s ease .6s forwards;
+    animation: buttonPrev .8s ease .6s forwards
   }
   .swiper-button-next {
-    -webkit-transform: translate(-200%,0) rotate(9deg);
-    transform: translate(-200%,0) rotate(9deg)
+    -webkit-transform: translate(-225%,0) rotate(0);
+    transform: translate(-225%,0) rotate(0)
   }
   ._watcher-view .swiper-button-next {
-    -webkit-animation: buttonNext 1s linear 1s forwards;
-    animation: buttonNext 1s linear 1s forwards
+    -webkit-animation: buttonNext .8s ease .6s forwards;
+    animation: buttonNext .8s ease .6s forwards
   }
 }
 @media (min-width:100em) {
