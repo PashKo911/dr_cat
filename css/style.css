@@ -966,10 +966,11 @@ h6 {
 }
 .right-about__list {
   display: flex;
-  -webkit-column-gap: .625rem;
-  -moz-column-gap: .625rem;
-  column-gap: .625rem;
-  row-gap: 1.875rem
+  -webkit-column-gap: .5625rem;
+  -moz-column-gap: .5625rem;
+  column-gap: .5625rem;
+  row-gap: 1.875rem;
+  flex-wrap: wrap
 }
 .right-about__item {
   flex: 0 1 calc((100% - .625rem * 3)/ 4);
