@@ -2541,7 +2541,9 @@ h6 {
     transform: rotate(-9deg)
   }
   .swiper-button-next {
-    grid-area: 2/2/3/3
+    grid-area: 2/2/3/3;
+    -webkit-transform: rotate(9deg);
+    transform: rotate(9deg)
   }
 }
 @media (max-width:29.99875em) {
@@ -3585,14 +3587,14 @@ h6 {
   }
 }
 @media (min-width:30em) and (max-width:48em) {
-  @supports (font-size:clamp(3.125rem ,3.125rem + 0vw ,3.125rem)) {
+  @supports (font-size:clamp(2.5rem ,1.4583333333rem + 3.4722222222vw ,3.125rem)) {
     .buttle-buy__top-title {
-      font-size: clamp(3.125rem ,3.125rem + 0 ,3.125rem)
+      font-size: clamp(2.5rem ,1.4583333333rem + 3.4722222222vw ,3.125rem)
     }
   }
-  @supports not (font-size:clamp(3.125rem ,3.125rem + 0vw ,3.125rem)) {
+  @supports not (font-size:clamp(2.5rem ,1.4583333333rem + 3.4722222222vw ,3.125rem)) {
     .buttle-buy__top-title {
-      font-size: calc(3.125rem + 0 * (100vw - 30rem)/ 18)
+      font-size: calc(2.5rem + .625 * (100vw - 30rem)/ 18)
     }
   }
   @supports (font-size:clamp(3.75rem ,1.6666666667rem + 6.9444444444vw ,5rem)) {

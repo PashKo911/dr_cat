@@ -6212,6 +6212,7 @@
                 slidesPerView: 1,
                 spaceBetween: 0,
                 speed: 800,
+                loop: true,
                 autoplay: {
                     delay: 3e5,
                     disableOnInteraction: false
